@@ -1,0 +1,13 @@
+[package]
+name = "core-math"
+version = "0.1.0"
+authors = ["Chen-Pang He (https://jdh8.org)"]
+edition = "2021"
+description = "Rusty API for CORE-MATH"
+repository = "https://github.com/jdh8/core-math"
+license = "MIT"
+categories = ["mathematics", "no-std"]
+keywords = ["floating-point", "trigonometry", "exponential", "logarithm", "special-functions"]
+
+[dependencies]
+core-math-sys = "0.1.3"
