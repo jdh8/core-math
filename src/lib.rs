@@ -211,8 +211,15 @@ pub fn sinf(x: f32) -> f32 {
 
 #[must_use]
 #[inline]
-pub fn sincosf(x: f32) -> f32 {
-    unsafe { sys::cr_sincosf(x) }
+pub fn sincosf(x: f32) -> (f32, f32) {
+    use core::mem::MaybeUninit;
+    let mut s = MaybeUninit::uninit();
+    let mut c = MaybeUninit::uninit();
+
+    unsafe {
+        sys::cr_sincosf(x, s.as_mut_ptr(), c.as_mut_ptr());
+        (s.assume_init(), c.assume_init())
+    }
 }
 
 #[must_use]
