@@ -1,0 +1,8 @@
+mod bench;
+
+bench!(bench_core_math, core_math::atanf, _);
+bench!(bench_std, f32::atan, _);
+bench!(bench_libm, libm::atanf, _);
+
+criterion::criterion_group!(benches, bench_core_math, bench_std, bench_libm);
+criterion::criterion_main!(benches);

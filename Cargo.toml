@@ -1,6 +1,6 @@
 [package]
 name = "core-math"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Chen-Pang He (https://jdh8.org)"]
 edition = "2021"
 description = "Rusty API for CORE-MATH"
@@ -10,4 +10,232 @@ categories = ["mathematics", "no-std"]
 keywords = ["floating-point", "trigonometry", "exponential", "logarithm", "special-functions"]
 
 [dependencies]
-core-math-sys = "1.0.0"
+core-math-sys = "1.0.1"
+
+[dev-dependencies]
+criterion = "0.8"
+libm = "0.2"
+rand = "0.10"
+
+[profile.dev]
+opt-level = 3
+
+[[bench]]
+name = "f32_acos"
+harness = false
+
+[[bench]]
+name = "f32_acosh"
+harness = false
+
+[[bench]]
+name = "f32_asin"
+harness = false
+
+[[bench]]
+name = "f32_asinh"
+harness = false
+
+[[bench]]
+name = "f32_atan"
+harness = false
+
+[[bench]]
+name = "f32_atan2"
+harness = false
+
+[[bench]]
+name = "f32_atanh"
+harness = false
+
+[[bench]]
+name = "f32_cbrt"
+harness = false
+
+[[bench]]
+name = "f32_cos"
+harness = false
+
+[[bench]]
+name = "f32_cosh"
+harness = false
+
+[[bench]]
+name = "f32_erf"
+harness = false
+
+[[bench]]
+name = "f32_erfc"
+harness = false
+
+[[bench]]
+name = "f32_exp"
+harness = false
+
+[[bench]]
+name = "f32_exp2"
+harness = false
+
+[[bench]]
+name = "f32_exp10"
+harness = false
+
+[[bench]]
+name = "f32_exp_m1"
+harness = false
+
+[[bench]]
+name = "f32_hypot"
+harness = false
+
+[[bench]]
+name = "f32_lgamma"
+harness = false
+
+[[bench]]
+name = "f32_ln"
+harness = false
+
+[[bench]]
+name = "f32_ln_1p"
+harness = false
+
+[[bench]]
+name = "f32_log2"
+harness = false
+
+[[bench]]
+name = "f32_log10"
+harness = false
+
+[[bench]]
+name = "f32_powf"
+harness = false
+
+[[bench]]
+name = "f32_sin"
+harness = false
+
+[[bench]]
+name = "f32_sin_cos"
+harness = false
+
+[[bench]]
+name = "f32_sinh"
+harness = false
+
+[[bench]]
+name = "f32_tan"
+harness = false
+
+[[bench]]
+name = "f32_tanh"
+harness = false
+
+[[bench]]
+name = "f32_tgamma"
+harness = false
+
+[[bench]]
+name = "f64_acos"
+harness = false
+
+[[bench]]
+name = "f64_acosh"
+harness = false
+
+[[bench]]
+name = "f64_asin"
+harness = false
+
+[[bench]]
+name = "f64_asinh"
+harness = false
+
+[[bench]]
+name = "f64_atan"
+harness = false
+
+[[bench]]
+name = "f64_atan2"
+harness = false
+
+[[bench]]
+name = "f64_atanh"
+harness = false
+
+[[bench]]
+name = "f64_cbrt"
+harness = false
+
+[[bench]]
+name = "f64_cos"
+harness = false
+
+[[bench]]
+name = "f64_cosh"
+harness = false
+
+[[bench]]
+name = "f64_erf"
+harness = false
+
+[[bench]]
+name = "f64_erfc"
+harness = false
+
+[[bench]]
+name = "f64_exp"
+harness = false
+
+[[bench]]
+name = "f64_exp2"
+harness = false
+
+[[bench]]
+name = "f64_exp10"
+harness = false
+
+[[bench]]
+name = "f64_exp_m1"
+harness = false
+
+[[bench]]
+name = "f64_hypot"
+harness = false
+
+[[bench]]
+name = "f64_ln"
+harness = false
+
+[[bench]]
+name = "f64_ln_1p"
+harness = false
+
+[[bench]]
+name = "f64_log2"
+harness = false
+
+[[bench]]
+name = "f64_log10"
+harness = false
+
+[[bench]]
+name = "f64_powf"
+harness = false
+
+[[bench]]
+name = "f64_sin"
+harness = false
+
+[[bench]]
+name = "f64_sinh"
+harness = false
+
+[[bench]]
+name = "f64_tan"
+harness = false
+
+[[bench]]
+name = "f64_tanh"
+harness = false
