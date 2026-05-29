@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- markdownlint-disable no-duplicate-heading -->
 
+## [Unreleased]
+
+### Tooling
+
+- Flatten the shared benchmark helper from `benches/bench/mod.rs` to
+  `benches/bench.rs` and pin explicit benchmark targets with
+  `autobenches = false`. No effect on the published library API.
+
 ## [1.0.1] - 2026-05-23
 
 ### Dependencies

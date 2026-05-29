@@ -8,6 +8,7 @@ repository = "https://github.com/jdh8/core-math"
 license = "MIT"
 categories = ["mathematics", "no-std"]
 keywords = ["floating-point", "trigonometry", "exponential", "logarithm", "special-functions"]
+autobenches = false
 
 [dependencies]
 core-math-sys = "1.0.1"
