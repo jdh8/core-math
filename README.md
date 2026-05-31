@@ -1,8 +1,8 @@
 core-math
 =========
-[![Build status](https://github.com/jdh8/core-math/actions/workflows/rust.yml/badge.svg)](https://github.com/jdh8/core-math)
 [![Crates.io](https://img.shields.io/crates/v/core-math.svg)](https://crates.io/crates/core-math)
 [![Documentation](https://docs.rs/core-math/badge.svg)](https://docs.rs/core-math)
+[![Build status](https://github.com/jdh8/core-math/actions/workflows/rust.yml/badge.svg)](https://github.com/jdh8/core-math)
 
 Rusty API for [CORE-MATH](https://core-math.gitlabpages.inria.fr/)
 
