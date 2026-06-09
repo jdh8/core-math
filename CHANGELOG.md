@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-06-09
+
+### Dependencies
+
+- Bump `core-math-sys` to 1.0.2, which now tracks the official CORE-MATH
+  release instead of a vendored fork. Brings the latest upstream accuracy
+  and correctness fixes to every wrapped function.
+
 ### Tooling
 
 - Flatten the shared benchmark helper from `benches/bench/mod.rs` to
@@ -50,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - GitHub Actions workflow `rust.yml` for CI.
 
+[1.0.2]: https://github.com/jdh8/core-math/releases/tag/1.0.2
 [1.0.1]: https://github.com/jdh8/core-math/releases/tag/1.0.1
 [1.0.0]: https://github.com/jdh8/core-math/releases/tag/1.0.0
 [0.2.0]: https://github.com/jdh8/core-math/releases/tag/0.2.0
