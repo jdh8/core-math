@@ -1,6 +1,6 @@
 [package]
 name = "core-math"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Chen-Pang He (https://jdh8.org)"]
 edition = "2021"
 description = "Rusty API for CORE-MATH"
@@ -11,7 +11,7 @@ keywords = ["floating-point", "trigonometry", "exponential", "logarithm", "speci
 autobenches = false
 
 [dependencies]
-core-math-sys = "1.0.1"
+core-math-sys = "1.0.2"
 
 [dev-dependencies]
 criterion = "0.8"
