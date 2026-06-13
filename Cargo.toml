@@ -1,8 +1,9 @@
 [package]
 name = "core-math"
-version = "1.0.2"
+version = "1.1.1"
 authors = ["Chen-Pang He (https://jdh8.org)"]
-edition = "2021"
+edition = "2024"
+rust-version = "1.85"
 description = "Rusty API for CORE-MATH"
 repository = "https://github.com/jdh8/core-math"
 license = "MIT"
@@ -10,8 +11,15 @@ categories = ["mathematics", "no-std"]
 keywords = ["floating-point", "trigonometry", "exponential", "logarithm", "special-functions"]
 autobenches = false
 
+[features]
+f16 = ["core-math-sys/f16"]
+f128 = ["core-math-sys/f128"]
+
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
-core-math-sys = "1.0.2"
+core-math-sys = "1.1.1"
 
 [dev-dependencies]
 criterion = "0.8"
@@ -51,6 +59,10 @@ harness = false
 
 [[bench]]
 name = "f32_cbrt"
+harness = false
+
+[[bench]]
+name = "f32_compound"
 harness = false
 
 [[bench]]
@@ -206,6 +218,10 @@ name = "f64_hypot"
 harness = false
 
 [[bench]]
+name = "f64_lgamma"
+harness = false
+
+[[bench]]
 name = "f64_ln"
 harness = false
 
@@ -230,6 +246,10 @@ name = "f64_sin"
 harness = false
 
 [[bench]]
+name = "f64_sin_cos"
+harness = false
+
+[[bench]]
 name = "f64_sinh"
 harness = false
 
@@ -239,4 +259,8 @@ harness = false
 
 [[bench]]
 name = "f64_tanh"
+harness = false
+
+[[bench]]
+name = "f64_tgamma"
 harness = false

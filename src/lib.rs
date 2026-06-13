@@ -1,7 +1,19 @@
 #![doc = include_str!("../README.md")]
 #![cfg_attr(not(test), no_std)]
+#![cfg_attr(feature = "f16", feature(f16))]
+#![cfg_attr(feature = "f128", feature(f128))]
 
 use core_math_sys as sys;
+
+#[cfg(feature = "f16")]
+mod binary16;
+#[cfg(feature = "f16")]
+pub use binary16::*;
+
+#[cfg(feature = "f128")]
+mod binary128;
+#[cfg(feature = "f128")]
+pub use binary128::*;
 
 /////// `f32` functions ///////
 
@@ -75,6 +87,12 @@ pub fn atanpif(x: f32) -> f32 {
 #[inline]
 pub fn cbrtf(x: f32) -> f32 {
     unsafe { sys::cr_cbrtf(x) }
+}
+
+#[must_use]
+#[inline]
+pub fn compoundf(x: f32, y: f32) -> f32 {
+    unsafe { sys::cr_compoundf(x, y) }
 }
 
 #[must_use]
@@ -406,6 +424,12 @@ pub fn hypot(x: f64, y: f64) -> f64 {
 
 #[must_use]
 #[inline]
+pub fn lgamma(x: f64) -> f64 {
+    unsafe { sys::cr_lgamma(x) }
+}
+
+#[must_use]
+#[inline]
 pub fn log(x: f64) -> f64 {
     unsafe { sys::cr_log(x) }
 }
@@ -460,6 +484,19 @@ pub fn sin(x: f64) -> f64 {
 
 #[must_use]
 #[inline]
+pub fn sincos(x: f64) -> (f64, f64) {
+    use core::mem::MaybeUninit;
+    let mut s = MaybeUninit::uninit();
+    let mut c = MaybeUninit::uninit();
+
+    unsafe {
+        sys::cr_sincos(x, s.as_mut_ptr(), c.as_mut_ptr());
+        (s.assume_init(), c.assume_init())
+    }
+}
+
+#[must_use]
+#[inline]
 pub fn sinh(x: f64) -> f64 {
     unsafe { sys::cr_sinh(x) }
 }
@@ -486,4 +523,10 @@ pub fn tanh(x: f64) -> f64 {
 #[inline]
 pub fn tanpi(x: f64) -> f64 {
     unsafe { sys::cr_tanpi(x) }
+}
+
+#[must_use]
+#[inline]
+pub fn tgamma(x: f64) -> f64 {
+    unsafe { sys::cr_tgamma(x) }
 }
