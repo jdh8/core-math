@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   edition 2024, where `expr` fragments also match `_`.
 - CI now also builds with the MSRV and tests the `f16`/`f128` features on
   nightly.
+- Rename bench targets to C-style names matching the exported functions
+  (e.g. `f32_exp` → `expf`, `f64_ln` → `log`).
 
 ## [1.0.2] - 2026-06-09
 
@@ -90,6 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - GitHub Actions workflow `rust.yml` for CI.
 
+[Unreleased]: https://github.com/jdh8/core-math/compare/1.1.1...HEAD
 [1.1.1]: https://github.com/jdh8/core-math/releases/tag/1.1.1
 [1.0.2]: https://github.com/jdh8/core-math/releases/tag/1.0.2
 [1.0.1]: https://github.com/jdh8/core-math/releases/tag/1.0.1
