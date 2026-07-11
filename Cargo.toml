@@ -1,6 +1,6 @@
 [package]
 name = "core-math"
-version = "1.1.1"
+version = "1.2.0"
 authors = ["Chen-Pang He (https://jdh8.org)"]
 edition = "2024"
 rust-version = "1.85"
@@ -19,7 +19,7 @@ f128 = ["core-math-sys/f128"]
 all-features = true
 
 [dependencies]
-core-math-sys = "1.1.1"
+core-math-sys = "1.2.0"
 
 [dev-dependencies]
 criterion = "0.8"

@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-11
+
+### Added
+
+- New correctly rounded `atan2q`, the binary128 two-argument arctangent.
+  Requires the `f128` feature.
+
+### Dependencies
+
+- Bump `core-math-sys` to 1.2.0, which binds `cr_atan2q` and advances the
+  vendored CORE-MATH submodule with accuracy and worst-case-table improvements
+  to many existing functions (`exp`, `tanh`, `log`, `sin`, `cos`, ...) with no
+  API changes.
+
 ## [1.1.1] - 2026-06-13
 
 ### Added

@@ -4,6 +4,12 @@ use super::sys;
 
 #[must_use]
 #[inline]
+pub fn atan2q(y: f128, x: f128) -> f128 {
+    unsafe { sys::cr_atan2q(y, x) }
+}
+
+#[must_use]
+#[inline]
 pub fn cbrtq(x: f128) -> f128 {
     unsafe { sys::cr_cbrtq(x) }
 }

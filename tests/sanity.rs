@@ -62,4 +62,5 @@ fn sanity_f16() {
 fn sanity_f128() {
     assert!(core_math::expq(0.0).eq(&1.0));
     assert!(core_math::sqrtq(4.0).eq(&2.0));
+    assert!(core_math::atan2q(0.0, 1.0).eq(&0.0));
 }
