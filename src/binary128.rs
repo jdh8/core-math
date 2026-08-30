@@ -4,6 +4,24 @@ use super::sys;
 
 #[must_use]
 #[inline]
+pub fn acosq(x: f128) -> f128 {
+    unsafe { sys::cr_acosq(x) }
+}
+
+#[must_use]
+#[inline]
+pub fn asinq(x: f128) -> f128 {
+    unsafe { sys::cr_asinq(x) }
+}
+
+#[must_use]
+#[inline]
+pub fn atanq(x: f128) -> f128 {
+    unsafe { sys::cr_atanq(x) }
+}
+
+#[must_use]
+#[inline]
 pub fn atan2q(y: f128, x: f128) -> f128 {
     unsafe { sys::cr_atan2q(y, x) }
 }

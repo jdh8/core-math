@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New correctly rounded `acosq`, `asinq`, and `atanq` binary128 functions.
+  Requires the `f128` feature.
+
+### Dependencies
+
+- Bump `core-math-sys` to 1.3.0, which also removes the `libclang` build-time
+  dependency and brings correctness fixes to existing functions with no
+  further API changes.
+
 ## [1.2.0] - 2026-07-11
 
 ### Added
