@@ -5,528 +5,193 @@
 
 use core_math_sys as sys;
 
-#[cfg(feature = "f16")]
-mod binary16;
-#[cfg(feature = "f16")]
-pub use binary16::*;
+/// Wrap CORE-MATH functions whose arguments and result share one type.
+///
+/// `sincos` is the only shape that does not fit; it is written out by hand.
+macro_rules! wrap {
+    ($t:ty { $($f:ident = $sys:ident($($a:ident),+)),+ $(,)? }) => {$(
+        #[must_use]
+        #[inline]
+        pub fn $f($($a: $t),+) -> $t {
+            unsafe { sys::$sys($($a),+) }
+        }
+    )+};
+}
 
-#[cfg(feature = "f128")]
-mod binary128;
-#[cfg(feature = "f128")]
-pub use binary128::*;
+/// Wrap a CORE-MATH `sincos` variant, which writes through two out-pointers.
+macro_rules! wrap_sincos {
+    ($t:ty, $f:ident = $sys:ident) => {
+        #[must_use]
+        #[inline]
+        pub fn $f(x: $t) -> ($t, $t) {
+            let (mut s, mut c) = (0.0, 0.0);
+            unsafe { sys::$sys(x, &mut s, &mut c) };
+            (s, c)
+        }
+    };
+}
 
 /////// `f32` functions ///////
 
-#[must_use]
-#[inline]
-pub fn acosf(x: f32) -> f32 {
-    unsafe { sys::cr_acosf(x) }
-}
+wrap!(f32 {
+    acosf = cr_acosf(x),
+    acoshf = cr_acoshf(x),
+    acospif = cr_acospif(x),
+    asinf = cr_asinf(x),
+    asinhf = cr_asinhf(x),
+    asinpif = cr_asinpif(x),
+    atanf = cr_atanf(x),
+    atan2f = cr_atan2f(y, x),
+    atan2pif = cr_atan2pif(y, x),
+    atanhf = cr_atanhf(x),
+    atanpif = cr_atanpif(x),
+    cbrtf = cr_cbrtf(x),
+    compoundf = cr_compoundf(x, y),
+    cosf = cr_cosf(x),
+    coshf = cr_coshf(x),
+    cospif = cr_cospif(x),
+    erff = cr_erff(x),
+    erfcf = cr_erfcf(x),
+    expf = cr_expf(x),
+    exp10f = cr_exp10f(x),
+    exp10m1f = cr_exp10m1f(x),
+    exp2f = cr_exp2f(x),
+    exp2m1f = cr_exp2m1f(x),
+    expm1f = cr_expm1f(x),
+    hypotf = cr_hypotf(x, y),
+    lgammaf = cr_lgammaf(x),
+    logf = cr_logf(x),
+    log10f = cr_log10f(x),
+    log10p1f = cr_log10p1f(x),
+    log1pf = cr_log1pf(x),
+    log2f = cr_log2f(x),
+    log2p1f = cr_log2p1f(x),
+    powf = cr_powf(x, y),
+    rsqrtf = cr_rsqrtf(x),
+    sinf = cr_sinf(x),
+    sinhf = cr_sinhf(x),
+    sinpif = cr_sinpif(x),
+    tanf = cr_tanf(x),
+    tanhf = cr_tanhf(x),
+    tanpif = cr_tanpif(x),
+    tgammaf = cr_tgammaf(x),
+});
 
-#[must_use]
-#[inline]
-pub fn acoshf(x: f32) -> f32 {
-    unsafe { sys::cr_acoshf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn acospif(x: f32) -> f32 {
-    unsafe { sys::cr_acospif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn asinf(x: f32) -> f32 {
-    unsafe { sys::cr_asinf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn asinhf(x: f32) -> f32 {
-    unsafe { sys::cr_asinhf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn asinpif(x: f32) -> f32 {
-    unsafe { sys::cr_asinpif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atanf(x: f32) -> f32 {
-    unsafe { sys::cr_atanf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atan2f(y: f32, x: f32) -> f32 {
-    unsafe { sys::cr_atan2f(y, x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atan2pif(y: f32, x: f32) -> f32 {
-    unsafe { sys::cr_atan2pif(y, x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atanhf(x: f32) -> f32 {
-    unsafe { sys::cr_atanhf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atanpif(x: f32) -> f32 {
-    unsafe { sys::cr_atanpif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cbrtf(x: f32) -> f32 {
-    unsafe { sys::cr_cbrtf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn compoundf(x: f32, y: f32) -> f32 {
-    unsafe { sys::cr_compoundf(x, y) }
-}
-
-#[must_use]
-#[inline]
-pub fn cosf(x: f32) -> f32 {
-    unsafe { sys::cr_cosf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn coshf(x: f32) -> f32 {
-    unsafe { sys::cr_coshf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cospif(x: f32) -> f32 {
-    unsafe { sys::cr_cospif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn erff(x: f32) -> f32 {
-    unsafe { sys::cr_erff(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn erfcf(x: f32) -> f32 {
-    unsafe { sys::cr_erfcf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn expf(x: f32) -> f32 {
-    unsafe { sys::cr_expf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp10f(x: f32) -> f32 {
-    unsafe { sys::cr_exp10f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp10m1f(x: f32) -> f32 {
-    unsafe { sys::cr_exp10m1f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp2f(x: f32) -> f32 {
-    unsafe { sys::cr_exp2f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp2m1f(x: f32) -> f32 {
-    unsafe { sys::cr_exp2m1f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn expm1f(x: f32) -> f32 {
-    unsafe { sys::cr_expm1f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn hypotf(x: f32, y: f32) -> f32 {
-    unsafe { sys::cr_hypotf(x, y) }
-}
-
-#[must_use]
-#[inline]
-pub fn lgammaf(x: f32) -> f32 {
-    unsafe { sys::cr_lgammaf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn logf(x: f32) -> f32 {
-    unsafe { sys::cr_logf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log10f(x: f32) -> f32 {
-    unsafe { sys::cr_log10f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log10p1f(x: f32) -> f32 {
-    unsafe { sys::cr_log10p1f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log1pf(x: f32) -> f32 {
-    unsafe { sys::cr_log1pf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log2f(x: f32) -> f32 {
-    unsafe { sys::cr_log2f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log2p1f(x: f32) -> f32 {
-    unsafe { sys::cr_log2p1f(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn powf(x: f32, y: f32) -> f32 {
-    unsafe { sys::cr_powf(x, y) }
-}
-
-#[must_use]
-#[inline]
-pub fn rsqrtf(x: f32) -> f32 {
-    unsafe { sys::cr_rsqrtf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sinf(x: f32) -> f32 {
-    unsafe { sys::cr_sinf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sincosf(x: f32) -> (f32, f32) {
-    use core::mem::MaybeUninit;
-    let mut s = MaybeUninit::uninit();
-    let mut c = MaybeUninit::uninit();
-
-    unsafe {
-        sys::cr_sincosf(x, s.as_mut_ptr(), c.as_mut_ptr());
-        (s.assume_init(), c.assume_init())
-    }
-}
-
-#[must_use]
-#[inline]
-pub fn sinhf(x: f32) -> f32 {
-    unsafe { sys::cr_sinhf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sinpif(x: f32) -> f32 {
-    unsafe { sys::cr_sinpif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tanf(x: f32) -> f32 {
-    unsafe { sys::cr_tanf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tanhf(x: f32) -> f32 {
-    unsafe { sys::cr_tanhf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tanpif(x: f32) -> f32 {
-    unsafe { sys::cr_tanpif(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tgammaf(x: f32) -> f32 {
-    unsafe { sys::cr_tgammaf(x) }
-}
+wrap_sincos!(f32, sincosf = cr_sincosf);
 
 /////// `f64` functions ///////
 
-#[must_use]
-#[inline]
-pub fn acos(x: f64) -> f64 {
-    unsafe { sys::cr_acos(x) }
-}
+wrap!(f64 {
+    acos = cr_acos(x),
+    acosh = cr_acosh(x),
+    acospi = cr_acospi(x),
+    asin = cr_asin(x),
+    asinh = cr_asinh(x),
+    asinpi = cr_asinpi(x),
+    atan = cr_atan(x),
+    atan2 = cr_atan2(y, x),
+    atan2pi = cr_atan2pi(y, x),
+    atanh = cr_atanh(x),
+    atanpi = cr_atanpi(x),
+    cbrt = cr_cbrt(x),
+    cos = cr_cos(x),
+    cosh = cr_cosh(x),
+    cospi = cr_cospi(x),
+    erf = cr_erf(x),
+    erfc = cr_erfc(x),
+    exp = cr_exp(x),
+    exp10 = cr_exp10(x),
+    exp10m1 = cr_exp10m1(x),
+    exp2 = cr_exp2(x),
+    exp2m1 = cr_exp2m1(x),
+    expm1 = cr_expm1(x),
+    hypot = cr_hypot(x, y),
+    lgamma = cr_lgamma(x),
+    log = cr_log(x),
+    log10 = cr_log10(x),
+    log10p1 = cr_log10p1(x),
+    log1p = cr_log1p(x),
+    log2 = cr_log2(x),
+    log2p1 = cr_log2p1(x),
+    pow = cr_pow(x, y),
+    rsqrt = cr_rsqrt(x),
+    sin = cr_sin(x),
+    sinh = cr_sinh(x),
+    sinpi = cr_sinpi(x),
+    tan = cr_tan(x),
+    tanh = cr_tanh(x),
+    tanpi = cr_tanpi(x),
+    tgamma = cr_tgamma(x),
+});
 
-#[must_use]
-#[inline]
-pub fn acosh(x: f64) -> f64 {
-    unsafe { sys::cr_acosh(x) }
-}
+wrap_sincos!(f64, sincos = cr_sincos);
 
-#[must_use]
-#[inline]
-pub fn acospi(x: f64) -> f64 {
-    unsafe { sys::cr_acospi(x) }
-}
+/////// binary16 (`f16`) functions ///////
 
-#[must_use]
-#[inline]
-pub fn asin(x: f64) -> f64 {
-    unsafe { sys::cr_asin(x) }
-}
+#[cfg(feature = "f16")]
+wrap!(f16 {
+    acosf16 = cr_acosf16(x),
+    acoshf16 = cr_acoshf16(x),
+    acospif16 = cr_acospif16(x),
+    asinf16 = cr_asinf16(x),
+    asinhf16 = cr_asinhf16(x),
+    asinpif16 = cr_asinpif16(x),
+    atanf16 = cr_atanf16(x),
+    atan2f16 = cr_atan2f16(y, x),
+    atan2pif16 = cr_atan2pif16(y, x),
+    atanhf16 = cr_atanhf16(x),
+    atanpif16 = cr_atanpif16(x),
+    cbrtf16 = cr_cbrtf16(x),
+    compoundf16 = cr_compoundf16(x, y),
+    cosf16 = cr_cosf16(x),
+    coshf16 = cr_coshf16(x),
+    cospif16 = cr_cospif16(x),
+    erff16 = cr_erff16(x),
+    erfcf16 = cr_erfcf16(x),
+    expf16 = cr_expf16(x),
+    exp10f16 = cr_exp10f16(x),
+    exp10m1f16 = cr_exp10m1f16(x),
+    exp2f16 = cr_exp2f16(x),
+    exp2m1f16 = cr_exp2m1f16(x),
+    expm1f16 = cr_expm1f16(x),
+    hypotf16 = cr_hypotf16(x, y),
+    lgammaf16 = cr_lgammaf16(x),
+    logf16 = cr_logf16(x),
+    log10f16 = cr_log10f16(x),
+    log10p1f16 = cr_log10p1f16(x),
+    log1pf16 = cr_log1pf16(x),
+    log2f16 = cr_log2f16(x),
+    log2p1f16 = cr_log2p1f16(x),
+    powf16 = cr_powf16(x, y),
+    rsqrtf16 = cr_rsqrtf16(x),
+    sinf16 = cr_sinf16(x),
+    sinhf16 = cr_sinhf16(x),
+    sinpif16 = cr_sinpif16(x),
+    sqrtf16 = cr_sqrtf16(x),
+    tanf16 = cr_tanf16(x),
+    tanhf16 = cr_tanhf16(x),
+    tanpif16 = cr_tanpif16(x),
+    tgammaf16 = cr_tgammaf16(x),
+});
 
-#[must_use]
-#[inline]
-pub fn asinh(x: f64) -> f64 {
-    unsafe { sys::cr_asinh(x) }
-}
+#[cfg(feature = "f16")]
+wrap_sincos!(f16, sincosf16 = cr_sincosf16);
 
-#[must_use]
-#[inline]
-pub fn asinpi(x: f64) -> f64 {
-    unsafe { sys::cr_asinpi(x) }
-}
+/////// binary128 (`f128`) functions ///////
 
-#[must_use]
-#[inline]
-pub fn atan(x: f64) -> f64 {
-    unsafe { sys::cr_atan(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atan2(y: f64, x: f64) -> f64 {
-    unsafe { sys::cr_atan2(y, x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atan2pi(y: f64, x: f64) -> f64 {
-    unsafe { sys::cr_atan2pi(y, x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atanh(x: f64) -> f64 {
-    unsafe { sys::cr_atanh(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn atanpi(x: f64) -> f64 {
-    unsafe { sys::cr_atanpi(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cbrt(x: f64) -> f64 {
-    unsafe { sys::cr_cbrt(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cos(x: f64) -> f64 {
-    unsafe { sys::cr_cos(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cosh(x: f64) -> f64 {
-    unsafe { sys::cr_cosh(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn cospi(x: f64) -> f64 {
-    unsafe { sys::cr_cospi(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn erf(x: f64) -> f64 {
-    unsafe { sys::cr_erf(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn erfc(x: f64) -> f64 {
-    unsafe { sys::cr_erfc(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp(x: f64) -> f64 {
-    unsafe { sys::cr_exp(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp10(x: f64) -> f64 {
-    unsafe { sys::cr_exp10(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp10m1(x: f64) -> f64 {
-    unsafe { sys::cr_exp10m1(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp2(x: f64) -> f64 {
-    unsafe { sys::cr_exp2(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn exp2m1(x: f64) -> f64 {
-    unsafe { sys::cr_exp2m1(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn expm1(x: f64) -> f64 {
-    unsafe { sys::cr_expm1(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn hypot(x: f64, y: f64) -> f64 {
-    unsafe { sys::cr_hypot(x, y) }
-}
-
-#[must_use]
-#[inline]
-pub fn lgamma(x: f64) -> f64 {
-    unsafe { sys::cr_lgamma(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log(x: f64) -> f64 {
-    unsafe { sys::cr_log(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log10(x: f64) -> f64 {
-    unsafe { sys::cr_log10(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log10p1(x: f64) -> f64 {
-    unsafe { sys::cr_log10p1(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log1p(x: f64) -> f64 {
-    unsafe { sys::cr_log1p(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log2(x: f64) -> f64 {
-    unsafe { sys::cr_log2(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn log2p1(x: f64) -> f64 {
-    unsafe { sys::cr_log2p1(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn pow(x: f64, y: f64) -> f64 {
-    unsafe { sys::cr_pow(x, y) }
-}
-
-#[must_use]
-#[inline]
-pub fn rsqrt(x: f64) -> f64 {
-    unsafe { sys::cr_rsqrt(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sin(x: f64) -> f64 {
-    unsafe { sys::cr_sin(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sincos(x: f64) -> (f64, f64) {
-    use core::mem::MaybeUninit;
-    let mut s = MaybeUninit::uninit();
-    let mut c = MaybeUninit::uninit();
-
-    unsafe {
-        sys::cr_sincos(x, s.as_mut_ptr(), c.as_mut_ptr());
-        (s.assume_init(), c.assume_init())
-    }
-}
-
-#[must_use]
-#[inline]
-pub fn sinh(x: f64) -> f64 {
-    unsafe { sys::cr_sinh(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn sinpi(x: f64) -> f64 {
-    unsafe { sys::cr_sinpi(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tan(x: f64) -> f64 {
-    unsafe { sys::cr_tan(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tanh(x: f64) -> f64 {
-    unsafe { sys::cr_tanh(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tanpi(x: f64) -> f64 {
-    unsafe { sys::cr_tanpi(x) }
-}
-
-#[must_use]
-#[inline]
-pub fn tgamma(x: f64) -> f64 {
-    unsafe { sys::cr_tgamma(x) }
-}
+#[cfg(feature = "f128")]
+wrap!(f128 {
+    acosq = cr_acosq(x),
+    asinq = cr_asinq(x),
+    atanq = cr_atanq(x),
+    atan2q = cr_atan2q(y, x),
+    cbrtq = cr_cbrtq(x),
+    expq = cr_expq(x),
+    exp10q = cr_exp10q(x),
+    exp2q = cr_exp2q(x),
+    expm1q = cr_expm1q(x),
+    hypotq = cr_hypotq(x, y),
+    logq = cr_logq(x),
+    rsqrtq = cr_rsqrtq(x),
+    sqrtq = cr_sqrtq(x),
+});
