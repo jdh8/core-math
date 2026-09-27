@@ -186,6 +186,7 @@ wrap!(f128 {
     atanq = cr_atanq(x),
     atan2q = cr_atan2q(y, x),
     cbrtq = cr_cbrtq(x),
+    cosq = cr_cosq(x),
     expq = cr_expq(x),
     exp10q = cr_exp10q(x),
     exp2q = cr_exp2q(x),
@@ -193,5 +194,6 @@ wrap!(f128 {
     hypotq = cr_hypotq(x, y),
     logq = cr_logq(x),
     rsqrtq = cr_rsqrtq(x),
+    sinq = cr_sinq(x),
     sqrtq = cr_sqrtq(x),
 });

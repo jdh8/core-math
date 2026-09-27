@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New correctly rounded `sinq` and `cosq` binary128 functions.
+  Requires the `f128` feature.
+
+### Dependencies
+
+- Bump `core-math-sys` to 1.4.0, which also brings rounding fixes to the fast
+  paths of several binary64 functions and removes spurious floating-point
+  exceptions in `hypot`, `pow`, `cospi`, and `compoundf`, with no further API
+  changes.
+
 ## [1.3.0] - 2026-08-30
 
 ### Added
